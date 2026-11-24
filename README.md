@@ -2,9 +2,10 @@
 
 A 90-ball bingo caller board styled like an electronic scoreboard. All numbers
 1–90 sit behind backlit lenses with seven-segment LED digits; click a number to
-call it and its lamp switches on. Unlit numbers show white digits, called numbers
-light up yellow, and the number just picked glows red and pulses so everyone can
-see it. The panel has purple neon trim on a vibrant purple background.
+call it and its teal backlight switches on. Unlit numbers show white digits, and
+the number just picked is the brightest lamp on the board, ringed in purple and
+pulsing so everyone can see it. The board fills the screen beside a slim side
+panel with the last number, the count, recent numbers and the controls.
 
 ## Features
 

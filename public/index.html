@@ -7,36 +7,43 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header class="top">
-    <h1 class="sign"><span class="sign-tag">Sci ’29</span> <span class="sign-word">Bingo</span></h1>
+  <aside class="panel">
+    <h1 class="title">
+      <span class="title-tag">Sci ’29</span>
+      <span class="title-word">Bingo</span>
+    </h1>
 
-    <div class="module last-module">
-      <span class="module-label">Last number</span>
-      <div class="led led-red" id="lastBall" role="status" aria-live="polite"></div>
+    <section class="block">
+      <span class="label">Last number</span>
+      <div class="led led-last" id="lastBall" role="status" aria-live="polite"></div>
+    </section>
+
+    <section class="block stats">
+      <div class="stat">
+        <span class="label">Called</span>
+        <div class="stat-value"><div class="led led-count" id="calledCount"></div><span class="of">/ 90</span></div>
+      </div>
+      <div class="stat">
+        <span class="label">Previous</span>
+        <ol class="history" id="history" aria-label="Previous numbers, newest first"></ol>
+      </div>
+    </section>
+
+    <div class="controls">
+      <button id="drawBtn" class="primary">Draw random</button>
+      <div class="row">
+        <button id="undoBtn">Undo last</button>
+        <button id="resetBtn">New game</button>
+      </div>
+      <span class="status" id="status"></span>
     </div>
 
-    <div class="module side">
-      <span class="module-label">Called <span class="of">/ 90</span></span>
-      <div class="led led-yellow counter" id="calledCount"></div>
-      <span class="module-label">Previous</span>
-      <ol class="history" id="history" aria-label="Previous numbers, newest first"></ol>
-    </div>
-  </header>
+    <p class="hint">Click a number to light it up. Click it again to switch it off.</p>
+  </aside>
 
-  <main class="housing">
-    <span class="screw tl"></span><span class="screw tr"></span>
-    <span class="screw bl"></span><span class="screw br"></span>
+  <main class="stage">
     <div class="board" id="board" role="grid" aria-label="Bingo board, numbers 1 to 90"></div>
   </main>
-
-  <footer class="controls">
-    <button id="drawBtn" class="primary"><span class="lamp"></span>Draw random</button>
-    <button id="undoBtn"><span class="lamp"></span>Undo last</button>
-    <button id="resetBtn" class="danger"><span class="lamp"></span>New game</button>
-    <span class="status" id="status"></span>
-  </footer>
-
-  <p class="hint">Click a number to light it up. Click it again to switch it off.</p>
 
   <script src="app.js"></script>
 </body>

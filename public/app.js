@@ -108,9 +108,9 @@ function render(next) {
   calledCount.innerHTML = ledDigits(String(state.called.length).padStart(2, " "));
   calledCount.setAttribute("aria-label", `${state.called.length} of 90 called`);
 
-  // The five numbers called before the latest one, newest first.
+  // The ten numbers called before the latest one, newest first.
   historyEl.innerHTML = "";
-  state.called.slice(0, -1).slice(-5).reverse().forEach((n) => {
+  state.called.slice(0, -1).slice(-10).reverse().forEach((n) => {
     const li = document.createElement("li");
     li.innerHTML = ledDigits(String(n).padStart(2, " "));
     li.setAttribute("aria-label", String(n));
