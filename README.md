@@ -1,12 +1,13 @@
-# Bingo Board
+# Sci ’29 Bingo Board
 
-A 90-ball bingo caller board. All numbers 1–90 are laid out as a board; click a
-number to call it and it lights up, pulsing and glowing so everyone can see the
-number that was just picked. Numbers called earlier stay highlighted in gold.
+A 90-ball bingo caller board styled like an electronic scoreboard. All numbers
+1–90 sit behind backlit lenses with seven-segment LED digits; click a number to
+call it and its lamp switches on. The number just picked glows electric cyan and
+pulses so everyone can see it, and numbers called earlier stay lit in amber.
 
 ## Features
 
-- Board of 1–90 in 9 rows of 10
+- Board of 1–90 in 9 rows of 10, each number a backlit lamp with LED digits
 - Click a number to call it; the latest call glows, pulses and shows in the big ball
 - Click a called number again to un-call it (for mistakes), or use **Undo last**
 - **Draw random** picks an uncalled number for you
