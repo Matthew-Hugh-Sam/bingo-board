@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bingo Board</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="top">
+    <h1>Bingo</h1>
+
+    <div class="last" aria-live="polite">
+      <span class="last-label">Last number</span>
+      <span class="ball" id="lastBall">–</span>
+    </div>
+
+    <div class="side">
+      <div class="count"><strong id="calledCount">0</strong> / 90 called</div>
+      <ol class="history" id="history" aria-label="Previous numbers"></ol>
+    </div>
+  </header>
+
+  <main>
+    <div class="board" id="board" role="grid" aria-label="Bingo board, numbers 1 to 90"></div>
+  </main>
+
+  <footer class="controls">
+    <button id="drawBtn" class="primary">Draw random</button>
+    <button id="undoBtn">Undo last</button>
+    <button id="resetBtn" class="danger">New game</button>
+    <span class="status" id="status"></span>
+  </footer>
+
+  <p class="hint">Click a number to call it. Click it again to un-call it.</p>
+
+  <script src="app.js"></script>
+</body>
+</html>
