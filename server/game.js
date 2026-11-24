@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 
 const MIN = 1;
-const MAX = 90;
+const MAX = 50;
 
 /**
  * Holds the state of one bingo game: the numbers called so far, in order.
@@ -83,4 +83,4 @@ class Game {
   }
 }
 
-module.exports = { Game };
+module.exports = { Game, MIN, MAX };

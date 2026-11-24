@@ -1,6 +1,6 @@
 const path = require("path");
 const express = require("express");
-const { Game } = require("./game");
+const { Game, MIN, MAX } = require("./game");
 
 const PORT = Number(process.env.PORT) || 3000;
 const game = new Game(path.join(__dirname, "..", "data", "state.json"));
@@ -44,7 +44,7 @@ function respond(res) {
 function parseNumber(req, res) {
   const n = Number(req.params.n);
   if (!Game.isValid(n)) {
-    res.status(400).json({ error: "Number must be an integer between 1 and 90" });
+    res.status(400).json({ error: `Number must be an integer between ${MIN} and ${MAX}` });
     return null;
   }
   return n;

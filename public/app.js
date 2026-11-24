@@ -61,23 +61,39 @@ function ledDigits(text) {
 // ---------------------------------------------------------------------------
 // Board
 // ---------------------------------------------------------------------------
+const COLS = 10;
 const cells = new Map();
-let state = { called: [], last: null, remaining: 90 };
+let state = { called: [], last: null, remaining: 0 };
+let built = "";
 
-// Build the 90 lamps once: 9 rows of 10 (1–10, 11–20, … 81–90).
-for (let n = 1; n <= 90; n++) {
-  const cell = document.createElement("button");
-  cell.className = "cell";
-  cell.innerHTML = ledDigits(n);
-  cell.dataset.n = n;
-  cell.setAttribute("role", "gridcell");
-  cell.setAttribute("aria-pressed", "false");
-  cell.setAttribute("aria-label", String(n));
-  board.appendChild(cell);
-  cells.set(n, cell);
+// Build one lamp per number in rows of 10 (1–10, 11–20, …). The range comes
+// from the server, so the board always matches the game.
+function buildBoard(min, max) {
+  const key = `${min}-${max}`;
+  if (built === key) return;
+  built = key;
+  board.innerHTML = "";
+  cells.clear();
+  const rows = Math.ceil((max - min + 1) / COLS);
+  board.style.setProperty("--rows", rows);
+  board.style.setProperty("--ratio", ((COLS * 1.35) / rows).toFixed(3));
+  board.setAttribute("aria-label", `Bingo board, numbers ${min} to ${max}`);
+  document.querySelector(".of").textContent = `/ ${max - min + 1}`;
+  for (let n = min; n <= max; n++) {
+    const cell = document.createElement("button");
+    cell.className = "cell";
+    cell.innerHTML = ledDigits(n);
+    cell.dataset.n = n;
+    cell.setAttribute("role", "gridcell");
+    cell.setAttribute("aria-pressed", "false");
+    cell.setAttribute("aria-label", String(n));
+    board.appendChild(cell);
+    cells.set(n, cell);
+  }
 }
 
 function render(next) {
+  if (next.min != null && next.max != null) buildBoard(next.min, next.max);
   const prevLast = state.last;
   state = next;
   const called = new Set(state.called);
@@ -91,7 +107,7 @@ function render(next) {
   }
 
   // Replay the "just picked" animation only when the latest number changes.
-  if (state.last !== prevLast && state.last !== null) {
+  if (state.last !== prevLast && state.last !== null && cells.has(state.last)) {
     const cell = cells.get(state.last);
     cell.classList.remove("fresh");
     void cell.offsetWidth; // restart the animation
@@ -106,7 +122,7 @@ function render(next) {
   lastBall.setAttribute("aria-label", state.last === null ? "No number called yet" : `Last number ${state.last}`);
   lastBall.classList.toggle("empty", state.last === null);
   calledCount.innerHTML = ledDigits(String(state.called.length).padStart(2, " "));
-  calledCount.setAttribute("aria-label", `${state.called.length} of 90 called`);
+  calledCount.setAttribute("aria-label", `${state.called.length} of ${state.called.length + state.remaining} called`);
 
   // The ten numbers called before the latest one, newest first.
   historyEl.innerHTML = "";
@@ -159,6 +175,5 @@ function connect() {
   events.onopen = () => { statusEl.textContent = ""; };
 }
 
-render(state);
 fetch("/api/state").then((r) => r.json()).then(render).catch(() => {});
 connect();

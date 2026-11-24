@@ -185,12 +185,14 @@ button.primary:hover:not(:disabled) { background: #9b70f8; }
 }
 
 .board {
-  /* Fill the stage; lamps may range from squarish (1 : 1) to wide (2 : 1). */
-  width: min(100cqw, 100cqh * 2.2);
-  height: min(100cqh, 100cqw / 1.1);
+  /* Rows of 10; --rows is set by app.js from the game's number range.
+     Fill the stage, keeping each lamp between square (1 : 1) and wide (2 : 1). */
+  --rows: 5;
+  width: min(100cqw, 100cqh * 20 / var(--rows));
+  height: min(100cqh, 100cqw * var(--rows) / 10);
   display: grid;
   grid-template-columns: repeat(10, 1fr);
-  grid-template-rows: repeat(9, 1fr);
+  grid-template-rows: repeat(var(--rows), 1fr);
   gap: var(--gap);
   padding: var(--gap);
   border-radius: 22px;
@@ -281,7 +283,7 @@ button.primary:hover:not(:disabled) { background: #9b70f8; }
   .controls .row { grid-template-columns: 1fr 1fr; }
   .hint { display: none; }
   .stage { container-type: inline-size; }
-  .board { width: 100%; height: auto; aspect-ratio: 3 / 2; }
+  .board { width: 100%; height: auto; aspect-ratio: var(--ratio, 2.7); }
 }
 
 @media (max-width: 520px) {
